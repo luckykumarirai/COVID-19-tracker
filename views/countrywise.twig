@@ -1,0 +1,70 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+ <center> <h1>{{title}}</h1></center>
+  {% if success %}
+    <div class="alert alert-success alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Success!</strong> {{ success }}
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Error!</strong> {{ error }}
+    </div>
+    {% endif %}
+   {% if  record %}
+   <div class="container-fluid">
+  <table class="table" id="country-table">
+  <thead class="table">
+    <tr>
+      <th>s.no</th>
+      <th>Country</th>
+      <th>Cases</th>
+      <th>Today Cases</th>
+      <th>Deaths</th>
+      <th>Today Deaths</th>
+      <th>Recovered</th>
+      <th>Active</th>
+      <th>Critical</th>
+      <th>Cases Per One Million</th>
+      <th>deaths Per One Million</th>
+      <th>Total Tests</th>
+      <th>Tests PerOne Million</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% set i = 0 %}
+  {% for item in record %}
+  {% if  i>0 %}
+    <tr>
+      <td>{{i}}</td>
+      <td><a href='/country/{{item.country}}'>{{ item.country }}</a></td>
+      <td>{{ item.cases }}</td>
+      <td>{{ item.todayCases }}</td>
+      <td>{{ item.deaths }}</td>
+      <td>{{ item.todayDeaths }}</td> 
+      <td>{{ item.recovered }}</td>
+      <td>{{ item.active }}</td> 
+      <td>{{ item.critical }}</td>
+      <td>{{ item.casesPerOneMillion }}</td> 
+      <td>{{ item.deathsPerOneMillion }}</td>
+      <td>{{ item.totalTests }}</td>
+      <td>{{ item.testsPerOneMillion }}</td> 
+    </tr>
+    {%  endif %}
+    {% set i=i+1 %}
+    
+  {% endfor %}
+  
+  </tbody>
+</table>
+<script>
+  $(document).ready(function() {
+    $('#country-table').DataTable();
+  });
+</script>
+</div>
+{% endif %}
+{% endblock %}

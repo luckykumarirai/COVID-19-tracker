@@ -1,0 +1,24 @@
+{
+  "name": "covid-19-tracker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "chart.js": "^2.9.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "local-storage": "^2.0.0",
+    "mongoose": "^5.9.27",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0",
+    "node-localstorage": "^2.1.6",
+    "twig": "~0.10.3"
+  }
+}

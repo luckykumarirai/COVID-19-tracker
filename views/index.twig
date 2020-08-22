@@ -1,0 +1,260 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  {% if success %}
+    <div class="alert alert-success alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Success!</strong> {{ success }}
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Error!</strong> {{ error }}
+    </div>
+    {% endif %}
+  <br><br>
+  <center>
+   <div class="container">
+          <h2 class="h2">World Total Data</h2><br>
+          <div class="row">
+            <div class="col-sm-5" style="border:1px solid black;border-radius:5px;padding:1%;">
+              <i class='fa fa-heart' style='color:blue;font-size:24px;'> Total Confirmed: </i><p  id="value1" style="font-size:24px;">{{record[0].cases}}</p>
+            </div>
+            <div class="col-sm-5 ml-auto" style="border:1px solid black;border-radius:5px;padding:1%;">
+              <i class='fa fa-heart' style='color:green;font-size:24px;'> Total Recovered: </i><p id="value2"  style="font-size:24px;">{{record[0].recovered}}</p>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-sm-5" style="border:1px solid black;border-radius:5px;padding:1%;">
+              <i class='fa fa-heart' style='color:red;font-size:24px;'> Total Deaths: </i><p id="value3" style="font-size:24px;">{{record[0].deaths}}</p>
+            </div>
+            <div class="col-sm-5 ml-auto" style="border:1px solid black;border-radius:5px;padding:1%;">
+              <i class='fa fa-heart' style='color:orange;font-size:24px;'> Total Active: </i><p  id="value4" style="font-size:24px;">{{record[0].active}}</p>
+            </div> 
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-sm-12" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+              <div id="chartContainer"></div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-sm-5" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+              <div id="chartContainer1"></div>
+            </div>
+            <div class="col-sm-5 ml-auto" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+              <div id="chartContainer2"></div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-sm-5" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+              <div id="chartContainer3"></div>
+            </div>
+            <div class="col-sm-5 ml-auto" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+              <div id="chartContainer4"></div>
+            </div>
+          </div>
+</div>
+</center>
+<script>
+window.onload = function() {
+var dataPoints1 = [];
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Confirmed cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints1
+	}]
+});
+function addData1(dat) {
+  var datas=dat.OWID_WRL;
+	for (var i = 0; i < datas.data.length; i++) {
+		dataPoints1.push({
+			x: new Date(datas.data[i].date),
+			y: parseInt(datas.data[i].total_cases)
+		});
+	}
+	chart1.render();
+}
+$.getJSON("https://covid.ourworldindata.org/data/owid-covid-data.json", addData1);
+
+var dataPoints2 = [];
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Deaths cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints2
+	}]
+});
+function addData2(dat) {
+    var datas=dat.OWID_WRL;
+	for (var i = 0; i < datas.data.length; i++) {
+		dataPoints2.push({
+			x: new Date(datas.data[i].date),
+			y: parseInt(datas.data[i].total_deaths)
+		});
+	}
+	chart2.render();
+}
+$.getJSON("https://covid.ourworldindata.org/data/owid-covid-data.json", addData2);
+
+var dataPoints3 = [];
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Daily New cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints3
+	}]
+});
+function addData3(data) {
+    var datas=data.OWID_WRL;
+	for (var i = 0; i < datas.data.length; i++) {
+		dataPoints3.push({
+			x: new Date(datas.data[i].date),
+			y: parseInt(datas.data[i].new_cases)
+		});
+	}
+	chart3.render();
+}
+$.getJSON("https://covid.ourworldindata.org/data/owid-covid-data.json", addData3);
+
+var dataPoints4 = [];
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Daily New Deaths"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints4
+	}]
+});
+function addData4(dat) {
+    var datas=dat.OWID_WRL;
+	for (var i = 0; i < datas.data.length; i++) {
+		dataPoints4.push({ 
+			x: new Date(datas.data[i].date),
+			y: parseInt(datas.data[i].new_deaths)
+		});
+	}
+	chart4.render();
+}
+$.getJSON("https://covid.ourworldindata.org/data/owid-covid-data.json", addData4);
+
+var chart = new CanvasJS.Chart("chartContainer", {
+  theme: "light2",
+	animationEnabled: true,
+	title: {
+		text: "World covid-19 total data"
+	},
+	data: [{
+		type: "doughnut",
+		startAngle: 240,
+		yValueFormatString: "##,###,###",
+		indexLabel: "{label} {y}",
+		dataPoints: [
+			{y: {{record[0].cases}}, label: "Total Confirmed", color:"blue"},
+      {y: {{record[0].deaths}}, label: "Total Deaths", color:"red"},
+			{y: {{record[0].recovered}}, label: "Total Recovered", color:"green"},
+			{y: {{record[0].active}}, label: "Total Active", color:"orange"}
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+<script>
+function numberWithCommas(x) 
+{
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+var val1 = parseInt($('#value1').text());
+val1 = numberWithCommas(val1);
+$('#value1').text(val1);
+
+var val2 = parseInt($('#value2').text());
+val2 = numberWithCommas(val2);
+$('#value2').text(val2);
+
+var val3 = parseInt($('#value3').text());
+val3 = numberWithCommas(val3);
+$('#value3').text(val3);
+
+var val4 = parseInt($('#value4').text());
+val4 = numberWithCommas(val4);
+$('#value4').text(val4);
+
+</script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock %}
+
+
+
+

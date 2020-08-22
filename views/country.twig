@@ -1,0 +1,247 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+<center>
+<div class="container">
+    <br><br>
+    <h2 class="h2">{{ country}} Total Data</h2><br>
+    <div class="row">
+      <div class="col-sm-5" style="border:1px solid black;border-radius:5px;padding:1%;">
+        <i class='fa fa-heart' style='color:blue;font-size:24px;'> Total Confirmed: </i><p style="font-size:24px;" id="value1">{{countrytotal.cases}}</p>
+      </div>
+      <div class="col-sm-5 ml-auto" style="border:1px solid black;border-radius:5px;padding:1%;">
+        <i class='fa fa-heart' style='color:green;font-size:24px;'> Total Recovered: </i><p style="font-size:24px;" id="value2">{{countrytotal.recovered}}</p>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-sm-5" style="border:1px solid black;border-radius:5px;padding:1%;">
+        <i class='fa fa-heart' style='color:red;font-size:24px;'> Total Deaths: </i><p style="font-size:24px;" id="value3">{{countrytotal.deaths}}</p>
+      </div>
+      <div class="col-sm-5 ml-auto" style="border:1px solid black;border-radius:5px;padding:1%;">
+        <i class='fa fa-heart' style='color:orange;font-size:24px;'> Total Active: </i><p style="font-size:24px;" id="value4">{{countrytotal.active}}</p>
+      </div>
+    </div>
+    <br><br>
+	<div class="row">
+      <div class="col-sm-12" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+        <div id="chartContainer"></div>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-sm-5" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+        <div id="chartContainer1"></div>
+      </div>
+      <div class="col-sm-5 ml-auto" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+        <div id="chartContainer2"></div>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-sm-5" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+        <div id="chartContainer3"></div>
+      </div>
+      <div class="col-sm-5 ml-auto" style="height:420px;border:1px solid black;border-radius:5px;padding:1%;">
+        <div id="chartContainer4"></div>
+      </div>
+    </div><br><br><br>
+</div>
+</center>
+<script>
+window.onload = function() {
+var dataPoints1 = [];
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Confirmed cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints1
+	}]
+});
+function addData1(data) {
+    var datas=data.{{ country }};
+	for (var i = 0; i < datas.length; i++) {
+		dataPoints1.push({
+			x: new Date(datas[i].date),
+			y: parseInt(datas[i].confirmed)
+		});
+	}
+	chart1.render();
+}
+$.getJSON("https://pomber.github.io/covid19/timeseries.json", addData1);
+
+var dataPoints2 = [];
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Recovered cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints2
+	}]
+});
+function addData2(data) {
+    var datas=data.{{ country }};
+	for (var i = 0; i < datas.length; i++) {
+		dataPoints2.push({
+			x: new Date(datas[i].date),
+			y: parseInt(datas[i].recovered)
+		});
+	}
+	chart2.render();
+}
+$.getJSON("https://pomber.github.io/covid19/timeseries.json", addData2);
+
+var dataPoints3 = [];
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Deaths cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints3
+	}]
+});
+function addData3(data) {
+    var datas=data.{{ country }};
+	for (var i = 0; i < datas.length; i++) {
+		dataPoints3.push({
+			x: new Date(datas[i].date),
+			y: parseInt(datas[i].deaths)
+		});
+	}
+	chart3.render();
+}
+$.getJSON("https://pomber.github.io/covid19/timeseries.json", addData3);
+
+var dataPoints4 = [];
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+	animationEnabled: true,
+	theme: "light2",
+  type: "line",
+	title: {
+		text: "Total Active cases"
+    },
+    axisX:{      
+        valueFormatString: "DD-MMM" ,
+        labelAngle: -50
+    },
+	axisY: {
+		title: "Cases",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+        type: "column",
+        xValueFormatString: "DD-MMM",
+		yValueFormatString: "#,### Cases",
+		dataPoints: dataPoints4
+	}]
+});
+function addData4(data) {
+    var datas=data.{{ country }};
+	for (var i = 0; i < datas.length; i++) {
+    var d=(parseInt(datas[i].confirmed)-parseInt(datas[i].recovered)-parseInt(datas[i].deaths))
+    if(d<0)
+    {
+      d=0;
+    }   
+		dataPoints4.push({ 
+			x: new Date(datas[i].date),
+			y: d
+		});
+	}
+	chart4.render();
+}
+$.getJSON("https://pomber.github.io/covid19/timeseries.json", addData4);
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+		text: "{{ country }} covid-19 total data"
+	},
+	data: [{
+		type: "doughnut",
+		startAngle: 240,
+		yValueFormatString: "##,###,###",
+		indexLabel: "{label} {y}",
+		dataPoints: [
+			{y: {{countrytotal.cases}}, label: "Total Confirmed", color:"blue"},
+    		{y: {{countrytotal.deaths}}, label: "Total Deaths", color:"red"},
+			{y: {{countrytotal.recovered}}, label: "Total Recovered", color:"green"},
+			{y: {{countrytotal.active}}, label: "Total Active", color:"orange"}
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+<script>
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+var val1 = parseInt($('#value1').text());
+val1 = numberWithCommas(val1);
+$('#value1').text(val1);
+
+var val2 = parseInt($('#value2').text());
+val2 = numberWithCommas(val2);
+$('#value2').text(val2);
+
+var val3 = parseInt($('#value3').text());
+val3 = numberWithCommas(val3);
+$('#value3').text(val3);
+
+var val4 = parseInt($('#value4').text());
+val4 = numberWithCommas(val4);
+$('#value4').text(val4);
+
+</script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<center><h1>{{title}}</h1></center>
+   <div class="container">
+  <table class="table" id="country-table">
+  <thead class="table-dark">
+    <tr>
+      <th>s.no</th>
+      <th>State</th>
+      <th>Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+ {% set i = 1 %}
+  {% for item in state_district %}
+   
+  {% if item.id==id %}
+  {% for items in item.districtData %}
+    <tr>
+      <td>{{i}}</td>
+      <td><a href='#'>{{ items.name}}</a></td>
+      <td>{{ items.confirmed}}</td>
+    </tr>
+    {% set i=i+1 %}
+    {%  endfor %}
+    {%  endif %}
+    
+    
+  {% endfor %}
+  
+  </tbody>
+</table>
+<script>
+  $(document).ready(function() {
+    $('#country-table').DataTable();
+  });
+</script>
+</div>
+{% endblock %}

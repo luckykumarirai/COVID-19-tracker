@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<center><h1>{{title}}</h1></center>
+   {% if  india_state%}
+   <div class="container">
+  <table class="table" id="country-table">
+  <thead class="table-dark">
+    <tr>
+      <th>s.no</th>
+      <th>State</th>
+      <th>Cases</th>
+      <th>Deaths</th>
+      <th>Recovered</th>
+      <th>Active</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% set i = 0 %}
+  {% for item in india_state %}
+  {% if  i>0 %}
+    <tr>
+      <td>{{i}}</td>
+      <td><a href='/state_district/{{item.id}}'>{{ item.state}}</a></td>
+      <td>{{ item.confirmed }}</td>
+      <td>{{ item.recovered }}</td>
+      <td>{{ item.deaths }}</td>
+      <td>{{ item.active}}</td>
+    </tr>
+    {%  endif %}
+    {% set i=i+1 %}
+    
+  {% endfor %}
+  
+  </tbody>
+</table>
+<script>
+  $(document).ready(function() {
+    $('#country-table').DataTable();
+  });
+</script>
+</div>
+{% endif %}
+{% endblock %}
