@@ -75,6 +75,10 @@ router.get('/country/:country', function(req, res, next) {
   {
     country="US";
   }
+  if(country=="south%20Africa")
+  {
+    country="South Africa";
+  }
   fetch(countrytotal, settings).then(res => res.json()).then((totaldata) => {
     res.render('country', { title:'COVID-19 tracker',countrytotal:totaldata,country:country,email:req.session.email});
   });
