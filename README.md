@@ -1,7 +1,8 @@
 # COVID-19-tracker
 coronavirus live updates
 
-#Follow below steps for run  the project
+# Follow below steps for run  the project
+
 1. install node.js
 2. install express
 3. install mongodb
@@ -9,7 +10,7 @@ coronavirus live updates
 5. Run the project using "nodemon" command
 
 
-#Images for understanding the project's working strategy-
+# Images for understanding the project's working strategy-
 
 World total data with graph analysis:-
 
