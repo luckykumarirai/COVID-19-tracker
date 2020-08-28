@@ -60,7 +60,7 @@ router.get('/state_wise',function(req, res, next) {
   });
   
 });
-router.get('/state_district/:id', checklogin,function(req, res, next) {
+router.get('/state_district/:id',function(req, res, next) {
   let state_url="https://api.covidindiatracker.com/state_data.json/";
   var id=req.params.id;
   fetch(state_url,settings).then(res => res.json()).then((data) => 
