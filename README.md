@@ -13,4 +13,7 @@ coronavirus live updates
 
 World total data with graph analysis:-
 
-![home page](https://github.com/luckykumarirai/COVID-19-tracker/blob/master/screenshorts/Screenshot%20from%202020-08-28%2017-42-48.png)https://github.com/luckykumarirai/COVID-19-tracker/blob/master/screenshorts/Screenshot%20from%202020-08-28%2017-42-48.png
+![home page](https://github.com/luckykumarirai/COVID-19-tracker/blob/master/screenshorts/Screenshot%20from%202020-08-28%2017-42-48.png)
+
+![home page](https://github.com/luckykumarirai/COVID-19-tracker/blob/master/screenshorts/Screenshot%20from%202020-08-28%2017-43-46.png)
+
